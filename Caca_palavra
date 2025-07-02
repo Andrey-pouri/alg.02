@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#define MAX_PALAVRAS 100
+#define MAX_TAM_PALAVRA 20
+
+// Estrutura para armazenar palavras
+typedef struct {
+    char palavras[MAX_PALAVRAS][MAX_TAM_PALAVRA];
+    int total;
+} ListaPalavras;
+
+// Função para cadastrar uma nova palavra
+void cadastrarPalavra(ListaPalavras *lista) {
+    if (lista->total < MAX_PALAVRAS) {
+        printf("Digite a nova palavra (mínimo 5 letras): ");
+        scanf("%s", lista->palavras[lista->total]);
+        lista->total++;
+    } else {
+        printf("Limite de palavras atingido.\n");
+    }
+}
+
+// Função principal
+int main() {
+    ListaPalavras lista = { .total = 0 };
+    int opcao;
+
+    // Menu inicial
+    do {
+        printf("\nMenu:\n");
+        printf("1. Cadastrar Palavra\n");
+        printf("2. Mostrar Palavras\n");
+        printf("3. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastrarPalavra(&lista);
+                break;
+            case 2:
+                printf("Palavras cadastradas:\n");
+                for (int i = 0; i < lista.total; i++) {
+                    printf("%s\n", lista.palavras[i]);
+                }
+                break;
+            case 3:
+                printf("Saindo do programa.\n");
+                break;
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+        }
+    } while (opcao != 3);
+
+    return 0;
+}
